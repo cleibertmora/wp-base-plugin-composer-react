@@ -1,0 +1,18 @@
+{
+    "name": "b2w/wp-mercado-pago-plugin-dealers",
+    "autoload": {
+        "psr-4": {
+            "ClinicManagerWP\\": "classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "cleibertmora",
+            "email": "cleibert@bike2web.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "platform-check": false
+}
