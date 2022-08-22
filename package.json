@@ -1,5 +1,5 @@
 {
-  "name": "clinic-manager-wp",
+  "name": "vic-entreno-app",
   "description": "",
   "main": "test.js",
   "scripts": {
@@ -14,7 +14,6 @@
     "@wordpress/scripts": "23.3.0"
   },
   "dependencies": {
-    "bootstrap": "^5.2.0-beta1",
-    "imask": "^6.4.2"
+    "bootstrap": "^5.2.0-beta1"
   }
 }

@@ -1,8 +1,8 @@
 {
-    "name": "b2w/wp-mercado-pago-plugin-dealers",
+    "name": "cleibert/vic-entreno-app",
     "autoload": {
         "psr-4": {
-            "ClinicManagerWP\\": "classes/"
+            "VicEntrenoApp\\": "classes/"
         }
     },
     "authors": [
