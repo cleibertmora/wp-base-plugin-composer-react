@@ -39,6 +39,21 @@ class FrontEnd {
     ob_start();    
      ?>
         <div class="vic-entreno-app-styles">
+
+            <?php 
+                $lastPayment = Data::retrive_active_payment( $data["id"] );
+                
+                if(!$lastPayment){
+                    ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p class="text-center">
+                                <strong class="mx-2">Cliente inactivo o con membresía vencida</strong> <br>Por favor registrar pago de su membresía para continuar con el servicio.
+                            </p>
+                        </div>
+                    <?php
+                }
+            ?>
+
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
 			    <p class="text-center">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
@@ -66,6 +81,11 @@ class FrontEnd {
                             <h2><?php echo $data['nombre']?></h2>
                         </div>
                         <p class="card-text">
+                            <?php if( $lastPayment ):?>
+                                <div class="alert alert-success show text-center" role="alert">
+                                    Membresía válida hasta: <b><?php echo $lastPayment['valido_hasta'] ?></b> <br>
+                                </div>
+                            <?php endif;?>
                             <b>Fecha inicio:</b> <?php echo $data['fecha_inicio'] ?><br>
                             <b>Fecha de nacimiento:</b> <?php echo $data['fecha_nacimiento'] ?><br>
                             <b>Edad:</b> <?php 
@@ -90,6 +110,41 @@ class FrontEnd {
                             <?php echo $data['descripcion'] ?>
                         </p>
                         </div>
+                    </div>
+
+                    <div class="card shadow-sm mt-5 mb-5">
+                        <h5 class="card-header">Pagos</h5>
+                        <?php if( isset($data['pagos']) ): ?>
+                        <div class="accordion" id="accordionPagos">
+                            <?php foreach( $data['pagos'] as $pago ): ?>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading<?php echo $pago["id"] ?>">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $pago["id"] ?>" aria-expanded="true" aria-controls="collapse<?php echo $pago["id"] ?>">
+                                            <?php echo $pago["titulo"] ?>               
+                                        </button>
+                                    </h2>
+                                    <div id="collapse<?php echo $pago["id"] ?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo $pago["id"] ?>" data-bs-parent="#accordionPagos">
+                                        <div class="accordion-body">
+                                            <p>
+                                                <b>Fecha pago:</b> <?php echo $pago['fecha_pago'] ?><br>
+                                                <b>Valido hasta:</b> <?php echo $pago['valido_hasta'] ?><br>
+                                                <b>Detalle:</b> <?php echo esc_html( strip_tags($pago['detalle']) ) ?><br>
+                                            </p>
+                                            <p class="text-center">
+                                                <a target="_blank" href="<?php echo $pago['comprobante'] ?>">
+                                                    <button class="btn btn-success">Ver comprobante</button>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php else: ?>
+                        <div class="text-center card-body">
+                            <p>No hay pagos registrados.</p>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-sx-12 col-lg-8">

@@ -1,6 +1,6 @@
 // import React from 'react'
 // import ReactDOM from 'react-dom'
-import('./css/frontend.scss')
+import './css/frontend.scss'
 import { Tab } from 'bootstrap';
 
 const triggerTabList = document.querySelectorAll('#myTab button')
